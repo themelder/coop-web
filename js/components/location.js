@@ -36,8 +36,6 @@ export class Location extends Component {
   }
 
   _fetchData ({ location }) {
-    console.log('fetching data')
-
     let requests = Promise.all([
       fetch(url`https://themachine.jeremystucki.com/coop/api/v2/locations/${location}`)
         .then((resp) => resp.json()),
