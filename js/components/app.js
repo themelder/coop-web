@@ -12,7 +12,7 @@ export class App extends Component {
       <div class="page-content">
         <div class="app-layout">
           <nav class="nav">
-            <Locations onChange={(loc) => this._onLocationChange(loc)}/>
+            <Locations onChange={this._onLocationChange}/>
           </nav>
           <main class="content">
             { location ? <Location location={location}/> : [] }
