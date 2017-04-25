@@ -23,7 +23,7 @@ export class Locations extends Component {
     const filteredLocations = this.state.locations
       .map((location) => ({ location, match: location.name.toLowerCase().indexOf(search) }))
       .filter(({ match }) => match > -1)
-      .sort((a, b) => a.match < b.match)
+      .sort((a, b) => a.match > b.match)
       .map(({ location }) => location)
 
     console.log(filteredLocations)
