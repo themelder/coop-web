@@ -26,8 +26,6 @@ export class Locations extends Component {
       .sort((a, b) => a.match > b.match)
       .map(({ location }) => location)
 
-    console.log(filteredLocations)
-
     this.setState({ filteredLocations })
   }
 
