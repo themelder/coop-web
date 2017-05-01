@@ -38,6 +38,8 @@ git add -A
 
 TIMESTAMP=$(date +"%s")
 
+git config user.email "travis@rubys.ninja"
+git config user.name "Travis"
 git commit -m "Build for tag ${TRAVIS_TAG}"
 
 echo "Pushing..."
