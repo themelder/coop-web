@@ -26,7 +26,7 @@ lint:
 
 build/css/app.css: $(LESS_FILES)
 	@mkdir -p $(@D)
-ifeq ($(NODE_ENV), production)
+ifeq ($(BUILD_MODE), release)
 	lessc less/app.less | postcss -u autoprefixer -u cssnano -o $@
 else
 	lessc less/app.less | postcss -u autoprefixer -o $@
