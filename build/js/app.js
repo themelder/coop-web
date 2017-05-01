@@ -695,11 +695,15 @@ function fetchLocation(location) {
 }
 
 function fetchLocationMenus(location) {
-  return fetch(`${API_BASE}/locations/${encode(location)}/menus`).then(resp => resp.json());
+  return fetch(`${API_BASE}/locations/${encode(location)}/menus/today`).then(resp => resp.json());
 }
 
 function fetchLocations() {
-  return fetch('https://themachine.jeremystucki.com/coop/api/v2/locations').then(resp => resp.json());
+  return fetch(`${API_BASE}/locations`).then(resp => resp.json());
+}
+
+function fetchLocationsByPosition(latitude, longitude) {
+  return fetch(`${API_BASE}/locations?latitude=${encode(latitude)}&longitude=${encode(longitude)}`).then(resp => resp.json()).then(({ results }) => results);
 }
 
 class Locations extends Component {
@@ -805,7 +809,11 @@ class Location extends Component {
         null,
         location.name
       ),
-      menus.map(menu => h(Menu, { menu: menu }))
+      h(
+        'div',
+        { 'class': 'menu-items' },
+        menus.map(menu => h(Menu, { menu: menu }))
+      )
     );
   }
 
@@ -823,6 +831,14 @@ class App extends Component {
     return _temp = super(...args), this._onLocationChange = location => {
       this.setState({ location });
     }, _temp;
+  }
+
+  componentWillMount() {
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      fetchLocationsByPosition(coords.latitude, coords.longitude).then(locations => {
+        this.setState({ location: locations[0].id });
+      });
+    });
   }
 
   render({}, { location }) {
