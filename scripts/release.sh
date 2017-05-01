@@ -38,7 +38,7 @@ git add -A
 
 TIMESTAMP=$(date +"%s")
 
-git commit -m "Build #${TIMESTAMP}"
+git commit -m "Build for tag ${TRAVIS_TAG}"
 
 echo "Pushing..."
 git push origin ${BRANCH}

@@ -8,7 +8,6 @@ env:
 
 before_script:
 - make deps
-- make lint
 
 script:
 - make
