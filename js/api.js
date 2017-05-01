@@ -23,7 +23,7 @@ export function fetchLocation (location) {
  * @returns {Promise}
  */
 export function fetchLocationMenus (location) {
-  return fetch(`${API_BASE}/locations/${encode(location)}/menus`)
+  return fetch(`${API_BASE}/locations/${encode(location)}/menus/today`)
     .then((resp) => resp.json())
 }
 
@@ -32,6 +32,18 @@ export function fetchLocationMenus (location) {
  * @returns {Promise}
  */
 export function fetchLocations () {
-  return fetch('https://themachine.jeremystucki.com/coop/api/v2/locations')
+  return fetch(`${API_BASE}/locations`)
     .then((resp) => resp.json())
+}
+
+/**
+ *
+ * @param {number} latitude
+ * @param {number} longitude
+ * @returns {Promise<Array<{}>>}
+ */
+export function fetchLocationsByPosition (latitude, longitude) {
+  return fetch(`${API_BASE}/locations?latitude=${encode(latitude)}&longitude=${encode(longitude)}`)
+    .then((resp) => resp.json())
+    .then(({ results }) => results)
 }

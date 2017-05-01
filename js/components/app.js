@@ -1,10 +1,21 @@
 import { h, Component } from 'preact'
 import { Locations } from './locations'
 import { Location } from './location'
+import { fetchLocationsByPosition } from '../api'
+
 
 export class App extends Component {
   _onLocationChange = (location) => {
     this.setState({ location })
+  }
+
+  componentWillMount() {
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      fetchLocationsByPosition(coords.latitude, coords.longitude)
+        .then((locations) => {
+          this.setState({ location: locations[0].id })
+        })
+    })
   }
 
   render ({}, { location }) {

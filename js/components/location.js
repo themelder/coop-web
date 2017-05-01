@@ -33,7 +33,9 @@ export class Location extends Component {
     return (
       <section>
         <h1>{location.name}</h1>
-        { menus.map((menu) => <Menu menu={ menu }/>)}
+        <div class="menu-items">
+          { menus.map((menu) => <Menu menu={ menu }/>)}
+        </div>
       </section>
     )
   }
