@@ -1,4 +1,5 @@
 import { h, Component } from 'preact'
+import { fetchLocations } from '../api'
 
 export class Locations extends Component {
   constructor () {
@@ -30,15 +31,14 @@ export class Locations extends Component {
   }
 
   componentDidMount () {
-    return fetch('https://themachine.jeremystucki.com/coop/api/v2/locations')
-      .then((resp) => resp.json())
+    return fetchLocations()
       .then(({ results }) => this.setState({ locations: results, filteredLocations: results }))
   }
 
   render ({ onSelectLocation }, { filteredLocations }) {
     return (
       <div>
-        <input type="search" placeholder="Search" onInput={this._onInput} class="locations-search" />
+        <input type="search" placeholder="Search" onInput={this._onInput} class="locations-search"/>
         <ul class="locations-list">
           { filteredLocations.map((location) => (
             <li class="location">

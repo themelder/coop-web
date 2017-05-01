@@ -1,11 +1,14 @@
 import { h, Component } from 'preact'
-import { url } from '../helpers'
+import { fetchLocation, fetchLocationMenus } from '../api'
 
 const Menu = ({ menu }) => {
   return (
     <article class="menu-item">
-      <h1>{menu.title}</h1>
-      <h2>CHF {menu.price}</h2>
+      <h2>{menu.title}</h2>
+      <h3>CHF {menu.price}</h3>
+      <ul class="dishes">
+        {menu.menu.map((dish) => <li>{dish}</li>)}
+      </ul>
     </article>
   )
 }
@@ -37,10 +40,8 @@ export class Location extends Component {
 
   _fetchData ({ location }) {
     let requests = Promise.all([
-      fetch(url`https://themachine.jeremystucki.com/coop/api/v2/locations/${location}`)
-        .then((resp) => resp.json()),
-      fetch(url`https://themachine.jeremystucki.com/coop/api/v2/locations/${location}/menus`)
-        .then((resp) => resp.json())
+      fetchLocation(location),
+      fetchLocationMenus(location)
     ])
 
     return requests
