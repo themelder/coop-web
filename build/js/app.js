@@ -866,4 +866,3 @@ class App extends Component {
 render(h(App, null), document.body);
 
 }());
-//# sourceMappingURL=app.js.map
